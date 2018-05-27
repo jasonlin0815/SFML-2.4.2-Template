@@ -1,10 +1,16 @@
 #include <SFML/Graphics.hpp>
+#include <stdlib.h>
+#include <time.h>
+#include "setting.h"
+#include "boid.h"
+
+using namespace sf;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    Clock clock;
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flocking!");
+    Boid *b = new Boid(Vector2f(WINDOW_WIDTH/2, WINDOW_HEIGHT/2));
 
     while (window.isOpen())
     {
@@ -15,8 +21,14 @@ int main()
                 window.close();
         }
 
+        float dt = clock.restart().asSeconds();
+
         window.clear();
-        window.draw(shape);
+
+        b->seek(Vector2f(Mouse::getPosition(window)));
+        b->update(dt);
+        window.draw(*b);
+
         window.display();
     }
 

@@ -133,7 +133,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="boid.cpp" />
+    <ClCompile Include="boid_system.cpp" />
+    <ClCompile Include="force_alignment.cpp" />
+    <ClCompile Include="force_cohesion.cpp" />
+    <ClCompile Include="force_rule.cpp" />
+    <ClCompile Include="force_seperation.cpp" />
+    <ClCompile Include="grid.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="math.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="boid.h" />
+    <ClInclude Include="boid_system.h" />
+    <ClInclude Include="force_alignment.h" />
+    <ClInclude Include="force_cohesion.h" />
+    <ClInclude Include="force_rule.h" />
+    <ClInclude Include="force_seperation.h" />
+    <ClInclude Include="grid.h" />
+    <ClInclude Include="math.h" />
+    <ClInclude Include="setting.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
