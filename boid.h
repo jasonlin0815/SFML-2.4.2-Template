@@ -19,6 +19,5 @@ public:
     void update(float dt);
     void seek(Vector2f target);
     void applyForce(Vector2f force);
-    RectangleShape* display();
 };
 

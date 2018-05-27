@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "setting.h"
-#include "boid.h"
+#include "boid_system.h"
 
 using namespace sf;
 
@@ -10,7 +10,7 @@ int main()
 {
     Clock clock;
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flocking!");
-    Boid *b = new Boid(Vector2f(WINDOW_WIDTH/2, WINDOW_HEIGHT/2));
+    BoidSystem *bs = new BoidSystem(10);
 
     while (window.isOpen())
     {
@@ -25,9 +25,9 @@ int main()
 
         window.clear();
 
-        b->seek(Vector2f(Mouse::getPosition(window)));
-        b->update(dt);
-        window.draw(*b);
+        bs->setTarget(Vector2f(Mouse::getPosition(window)));
+        bs->update(dt);
+        bs->display(window);
 
         window.display();
     }

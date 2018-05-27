@@ -1,8 +1,8 @@
 #include "boid.h"
 #include "math.h"
 
-#define MAX_SPEED 0.4f
-#define MAX_FORCE 0.01f
+#define MAX_SPEED 0.07f
+#define MAX_FORCE (MAX_SPEED / 4)
 
 #define BOID_RADIUS 5
 
@@ -36,8 +36,18 @@ Boid::Boid(Vector2f loc)
 void Boid::seek(Vector2f target)
 {
     Vector2f desired = target - pos;
+
+    float d = Math::Magnitude(desired);
     desired = Math::Normalize(desired);
-    desired *= MAX_SPEED;
+
+    if (d < 100)
+    {
+        float m = d / 100.0f * MAX_SPEED;
+    }
+    else
+    {
+        desired *= MAX_SPEED;
+    }
 
     Vector2f steer = desired - vel;
     steer = limit(steer, MAX_FORCE);
