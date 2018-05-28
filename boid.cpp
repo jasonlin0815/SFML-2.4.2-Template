@@ -1,28 +1,25 @@
 #include "boid.h"
 #include "math.h"
+#include <stdlib.h>
+#include <iostream>
+#include <vector>
+#include "setting.h"
+#include "util.h"
 
-#define MAX_SPEED 0.07f
-#define MAX_FORCE (MAX_SPEED / 4)
+using namespace std;
 
 #define BOID_RADIUS 5
 
-static Vector2f limit(Vector2f a, float l)
-{
-    float mag = Math::Magnitude(a);
-    if (mag > MAX_SPEED)
-    {
-        float ratio = MAX_SPEED / mag;
-        a *= ratio;
-    }
-
-    return a;
-}
+#define PI  3.14159f
 
 Boid::Boid(Vector2f loc)
 {
     pos = loc;
     vel = Vector2f(0, 0);
-    acc = Vector2f(0, 0);
+
+    // Give random initial acceleration
+    int launchAngle = rand() % 360;
+    acc = Vector2f(cos(launchAngle * PI / 180.0f), sin(launchAngle * PI / 180.0f));
 
     maxspeed = MAX_SPEED;
     maxforce = MAX_FORCE;
@@ -33,7 +30,7 @@ Boid::Boid(Vector2f loc)
     setPosition(pos);
 }
 
-void Boid::seek(Vector2f target)
+Vector2f Boid::seek(Vector2f target)
 {
     Vector2f desired = target - pos;
 
@@ -50,8 +47,9 @@ void Boid::seek(Vector2f target)
     }
 
     Vector2f steer = desired - vel;
-    steer = limit(steer, MAX_FORCE);
-    applyForce(steer);
+    steer = Util::limit(steer, MAX_FORCE);
+
+    return steer;
 }
 
 void Boid::update(float dt)
@@ -60,7 +58,7 @@ void Boid::update(float dt)
     vel += acc;
 
     // Limit velocity by max speed
-    vel = limit(vel, MAX_SPEED);
+    vel = Util::limit(vel, MAX_SPEED);
 
     // Apply velocity
     pos += vel;
@@ -72,4 +70,9 @@ void Boid::update(float dt)
 void Boid::applyForce(Vector2f force)
 {
     acc += force;
+}
+
+Vector2f Boid::getVelocity()
+{
+    return vel;
 }

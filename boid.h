@@ -17,7 +17,9 @@ public:
     Boid(Vector2f loc);
 
     void update(float dt);
-    void seek(Vector2f target);
+    Vector2f seek(Vector2f target);
     void applyForce(Vector2f force);
+
+    Vector2f getVelocity();
 };
 

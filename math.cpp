@@ -11,7 +11,7 @@ Vector2f Math::Add(Vector2f a, Vector2f b)
 
 Vector2f Math::Sub(Vector2f a, Vector2f b)
 {
-    return Vector2f(0, 0);
+    return a - b;
 }
 
 Vector2f Math::Multiply(Vector2f a, float k)
@@ -22,6 +22,11 @@ Vector2f Math::Multiply(Vector2f a, float k)
 
 Vector2f Math::Normalize(Vector2f a)
 {
+    if (a == Vector2f(0, 0))
+    {
+        return a;
+    }
+
     Vector2f norm = a / Math::Magnitude(a);
 
     // cout << "Normalize (" << a.x << ", " << a.y << ") is (" << norm.x << ", " << norm.y << ")" << endl;
@@ -53,4 +58,9 @@ float Math::Cross(Vector2f a, Vector2f b)
 float Math::AngleBetween(Vector2f a, Vector2f b)
 {
     return 0;
+}
+
+float Math::Distance(Vector2f a, Vector2f b)
+{
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y +- b.y) * (a.y - b.y));
 }

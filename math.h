@@ -16,4 +16,5 @@ public:
     static Vector2f Dot(Vector2f a, Vector2f b);
     static float Cross(Vector2f a, Vector2f b);
     static float AngleBetween(Vector2f a, Vector2f b);
+    static float Distance(Vector2f a, Vector2f b);
 };

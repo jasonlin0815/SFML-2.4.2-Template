@@ -12,13 +12,57 @@ int main()
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flocking!");
     BoidSystem *bs = new BoidSystem(10);
 
+    srand((int)time(NULL));
+
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch (event.type)
+            {
+                case Event::Closed:
+                {
+                    window.close();
+                    break;
+                }
+
+                case Event::KeyPressed:
+                {
+                    // Toggle Alignment
+                    if (event.key.code == Keyboard::Num1)
+                    {
+                        bs->toggleAlignment();
+                    }
+
+                    // Toggle Seperation
+                    if (event.key.code == Keyboard::Num2)
+                    {
+                        bs->toggleSeperation();
+                    }
+
+                    // Toggle Cohesion
+                    if (event.key.code == Keyboard::Num3)
+                    {
+                        bs->toggleCohesion();
+                    }
+                }
+
+                case Event::MouseButtonPressed:
+                {
+                    // Add boids
+                    if (event.mouseButton.button == Mouse::Button::Left)
+                    {
+                        bs->add(Vector2f(Mouse::getPosition(window)));
+                    }
+
+                    // Remove boids from the end
+                    if (event.mouseButton.button == Mouse::Button::Right)
+                    {
+                        bs->remove();
+                    }
+                }
+            }
         }
 
         float dt = clock.restart().asSeconds();
