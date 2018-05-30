@@ -10,7 +10,7 @@ int main()
 {
     Clock clock;
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flocking!");
-    BoidSystem *bs = new BoidSystem(10);
+    BoidSystem *bs = new BoidSystem(20);
 
     srand((int)time(NULL));
 

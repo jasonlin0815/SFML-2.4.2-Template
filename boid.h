@@ -12,6 +12,8 @@ private:
     float maxforce;
     float maxspeed;
 
+    Texture texture;
+
 public:
     Boid() {};
     Boid(Vector2f loc);

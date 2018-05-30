@@ -12,6 +12,8 @@ using namespace std;
 
 #define PI  3.14159f
 
+#define BOID_TEXTURE_PATH "boid_texture.png"
+
 Boid::Boid(Vector2f loc)
 {
     pos = loc;
@@ -28,6 +30,10 @@ Boid::Boid(Vector2f loc)
     setRadius(BOID_RADIUS);
     setOrigin(Vector2f(BOID_RADIUS, BOID_RADIUS));
     setPosition(pos);
+
+    texture = Texture();
+    texture.loadFromFile(BOID_TEXTURE_PATH);
+    setTexture(&texture);
 }
 
 Vector2f Boid::seek(Vector2f target)
@@ -63,6 +69,15 @@ void Boid::update(float dt)
     // Apply velocity
     pos += vel;
     setPosition(pos);
+
+    //cout << vel.x << ", " << vel.y << endl;
+
+    float angle = getRotation();
+    float targetAngle = 360 - atan(vel.y / vel.x) * 180.0f / PI;
+    if (abs(targetAngle - angle) > 3)
+    {
+        setRotation(targetAngle);
+    }
 
     acc = Vector2f(0, 0);
 }
